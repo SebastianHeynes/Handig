@@ -1,7 +1,7 @@
 import * as api from './../api/index.js'
 import addModal from './add-modal.js'
 
-export default Vue.component('logo', {
+export default Vue.component('images', {
 
   components: {
     addModal

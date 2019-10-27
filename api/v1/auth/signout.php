@@ -1,7 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 
-require __DIR__ . '/../../db.php';
+require __DIR__ . '/../../config.php';
 
 $response = array();
 

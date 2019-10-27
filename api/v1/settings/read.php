@@ -3,23 +3,23 @@ header('Access-Control-Allow-Origin: *');
 
 require __DIR__ . '/../../config.php';
 
-$data = array();
 $response = array();
 
 $connect = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-$sql = "SELECT * FROM `images`";
+$sql = "SELECT * FROM `settings`";
 $result = $connect->query($sql);
 
 if ($result) {
-  while ($row = $result->fetch_assoc()) {
-    $data[] = array(
-      'id' => $row['id'],
-      'position' => $row['position'],
-      'description' => $row['description'],
-      'category' => $row['category'],
-      'url' => $row['url']
-    );
-  }
+  $row = $result->fetch_assoc();
+
+  $data = array(
+    'email' => $row['email'],
+    'password' => $row['password'],
+    'profilepic' => $row['profilepic'],
+    'presentation' => $row['presentation'],
+    'facebook' => $row['facebook'],
+    'instagram' => $row['instagram']
+  );
 
   $response['status'] = true;
   $response['payload'] = ['data' => $data];
@@ -30,5 +30,3 @@ if ($result) {
 
 header('Content-Type: application/json');
 echo json_encode($response);
-
-$connect->close();

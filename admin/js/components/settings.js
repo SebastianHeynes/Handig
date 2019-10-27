@@ -7,7 +7,7 @@ export default Vue.component('settings', {
       <div class="field">
         <label class="label">Namn</label>
         <div class="control">
-          <input class="input" type="text" />
+          <input class="input" type="text" placeholder="Albin Händig" />
         </div>
       </div>
 
@@ -21,7 +21,7 @@ export default Vue.component('settings', {
       <div class="field">
         <label class="label">Epost</label>
         <div class="control">
-          <input class="input" type="text" />
+          <input class="input" type="text" placeholder="business@albinhandig.se" />
         </div>
       </div>
 
@@ -29,6 +29,20 @@ export default Vue.component('settings', {
         <label class="label">Presentation</label>
         <div class="control">
           <textarea class="textarea"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Facebook</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="https://" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Instagram</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="https://" />
         </div>
       </div>
 

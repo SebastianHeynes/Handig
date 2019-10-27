@@ -1,26 +1,39 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 
-require __DIR__ . '/../../db.php';
+require __DIR__ . '/../../config.php';
 
 session_start();
 $response = array();
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
-  if ($_POST['username'] == USERNAME && $_POST['password'] == PASSWORD) {
+if (isset($_POST['email']) && isset($_POST['password'])) {
+  $connect = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+
+  $email = $connect->real_escape_string($_POST['email']);
+  $password = $connect->real_escape_string($_POST['password']);
+
+  $safepass = safepassword($email, $password);
+
+  $query = "SELECT * FROM `settings` WHERE `email`='$email' AND `password`='$safepass'";
+  $result = $connect->query($query) or die($connect->error);
+  $row = $result->fetch_assoc();
+
+  if ($email == $row['email'] && $safepass == $row['password']) {
     $_SESSION['admin'] = true;
     $_SESSION['token'] = TOKEN;
 
     $response['status'] = true;
-    $response['payload'] = TOKEN;
+    $response['payload'] = array('message' => TOKEN);
   } else {
     $response['status'] = false;
-    $response['payload'] = array('message' => 'invalid username and/or password');
+    $response['payload'] = array('message' => 'invalid email and/or password');
   }
 } else {
   $response['status'] = false;
-  $response['payload'] = array('message' => 'username & password is required');
+  $response['payload'] = array('message' => 'email & password is required');
 }
 
 header('Content-Type: application/json');
 echo json_encode($response);
+
+$connect->close();
