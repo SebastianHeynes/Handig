@@ -1,4 +1,29 @@
+import * as api from './../api/index.js'
+import addModal from './add-modal.js'
+
 export default Vue.component('logo', {
+
+  components: {
+    addModal
+  },
+
+  data () {
+    return {
+      isActive: false
+    }
+  },
+
+  methods: {
+    add () {
+      this.isActive = !this.isActive
+    },
+
+    signOut () {
+      api.signOut().then(data => {
+        this.$router.push('/signin')
+      })
+    }
+  },
 
   template: /* html */`
     <div class="images">
@@ -8,7 +33,10 @@ export default Vue.component('logo', {
         </div>
 
         <div class="level-right">
-          <button class="button is-small">Lägg till</button>
+          <div class="buttons is-marginless">
+            <button class="button is-small" @click="add">Lägg till</button>
+            <button class="button is-small is-danger" @click="signOut">Logga ut</button>
+          </div>
         </div>
       </nav>
 
@@ -38,6 +66,11 @@ export default Vue.component('logo', {
           </tbody>
         </table>
       </div>
+
+      <add-modal
+        :isActive="isActive"
+        @close="isActive = false"
+      />
     </div>
   `
 

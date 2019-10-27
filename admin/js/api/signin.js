@@ -1,6 +1,6 @@
 import Http from './../assets/http.js'
 
-export default data => {
+export default () => {
   return new Promise((resolve, reject) => {
     new Http({
       method: 'POST',

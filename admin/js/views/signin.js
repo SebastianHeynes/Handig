@@ -29,33 +29,48 @@ export default Vue.component('signin', {
   },
 
   template: /* html */`
-    <div class="container">
-      <div class="columns">
-        <div class="column is-half is-offset-one-quarter">
-          <h2 class="title">Logga in</h2>
-          
-          <form
-            class="auth-form sign-in"
-            @submit.prevent="signIn">
-            <div class="field">
-              <label class="label">Användarnamn</label>
-              <div class="control">
-                <input v-model="username" class="input" type="text">
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-one-third is-offset-one-third">
+            <h2 class="title">Logga in</h2>
+            
+            <form
+              class="auth-form sign-in"
+              @submit.prevent="signIn">
+              <div class="field">
+                <label class="label">Användarnamn</label>
+                <div class="control">
+                  <input
+                    v-model="username"
+                    class="input"
+                    type="text"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div class="field">
-              <label class="label">Lösenord</label>
-              <div class="control">
-                <input v-model="password" class="input" type="text">
+              <div class="field">
+                <label class="label">Lösenord</label>
+                <div class="control">
+                  <input
+                    v-model="password"
+                    class="input"
+                    type="text"
+                  />
+                </div>
               </div>
-            </div>
 
-            <input type="submit" value="Logga in" class="button is-success" />
-          </form>
+              <input
+                :disabled="!isValid"
+                type="submit"
+                value="Logga in"
+                class="button is-success"
+              />
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   `
 
 })
