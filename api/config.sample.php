@@ -4,4 +4,4 @@ define('DBUSER', '');
 define('DBPASS', '');
 define('DBNAME', '');
 
-define('SALT', '');
+define('TOKEN', '');

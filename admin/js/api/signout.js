@@ -1,17 +1,11 @@
-import Http from './../assets/http.js'
-
 export default data => {
   return new Promise((resolve, reject) => {
-    new Http({
-      method: 'POST',
-      url: 'https://albinhandig.se/admin/api/signout.php',
-      data: {
-        signout: true
-      },
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    }).then(data => {
+    fetch('//albinhandig.se/api/v1/auth/signout', {
+      method: 'post',
+      body: JSON.stringify({ signout: true })
+    })
+    .then(response => response.json())
+    .then(data => {
       if (data.status) {
         sessionStorage.removeItem('token')
         resolve(data)
