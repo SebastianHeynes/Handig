@@ -11,6 +11,33 @@
 
   <script type="text/javascript">document.documentElement.className = 'js';</script>
   <script type="text/javascript" src="//cdn.polyfill.io/v2/polyfill.min.js" async></script>
+
+  <style>
+    html,
+    body,
+    .app {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .splitview {
+      display: flex;
+      flex: 1 1 auto;
+      height: calc(100% - 3.25rem);
+    }
+
+    .settings {
+      width: 17.5rem;
+      border-right: 1px solid #eee;
+      padding: 1.5rem;
+    }
+
+    .images {
+      width: calc(100% - 17.5rem);
+      overflow: auto;
+      padding: 1.5rem;
+    }
+  </style>
 </head>
 <body>
   <noscript>

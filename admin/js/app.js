@@ -10,7 +10,6 @@ const app = new Vue({
   router: router,
   template: /* html */`
     <div class="app">
-      <topbar />
       <wrapper />
     </div>
   `
