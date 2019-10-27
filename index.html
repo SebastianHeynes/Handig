@@ -4,23 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
   <title>Albin Händig</title>
-
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-
   <script type="text/javascript">document.documentElement.className = 'js';</script>
   <script type="text/javascript" src="//cdn.polyfill.io/v2/polyfill.min.js" async></script>
 </head>
 <body>
-  <noscript>
-    <a href="http://www.enable-javascript.com" target="_blank" rel="noopener">Please enable JavaScript</a>
-  </noscript>
-
   <div class="app"></div>
 
   <script type="text/javascript" src="//unpkg.com/vue@2.5.13/dist/vue.min.js"></script>
   <script type="text/javascript" src="//unpkg.com/vue-router@3.0.0/dist/vue-router.min.js"></script>
-  <script type="module" src="js/app.js"></script>
+  <script>
+    const app = new Vue({
+      el: '.app',
+  
+      data () {
+        return {
+          images: null
+        }
+      },
+
+      mounted () {
+        this.readImages()
+      },
+
+      methods: {
+        readImages () {
+          fetch('//albinhandig.se/api/v1/images/read')
+            .then(response => response.json())
+            .then(json => {
+              this.images = json.payload.data
+            })
+        }
+      },
+
+      template: /* html */`
+        <div class="app">
+          <section class="section">
+            <h1
+              :class="{ 'has-text-danger': !images }"
+              class="title is-2 has-text-centered">
+              Albin Händig
+            </h1>
+
+            <div
+              v-if="images"
+              class="columns">
+              <div class="column is-half is-offset-one-quarter">
+                <img
+                  v-for="(image, i) in images"
+                  :key="i"
+                  :src="image.url"
+                />
+              </div>
+            </div>
+          </section>
+        </div>
+      `
+    })
+  </script>
 </body>
 </html>

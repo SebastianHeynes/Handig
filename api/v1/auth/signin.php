@@ -1,21 +1,21 @@
 <?php
 header('Access-Control-Allow-Origin: *');
 
+require __DIR__ . '/../../db.php';
+
 session_start();
 $response = array();
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
-  if ($_POST['username'] == 'albin' && $_POST['password'] == 'handig') {
-    $token = sha1('albin-handig');
-
+  if ($_POST['username'] == USERNAME && $_POST['password'] == PASSWORD) {
     $_SESSION['admin'] = true;
-    $_SESSION['token'] = $token;
+    $_SESSION['token'] = TOKEN;
 
     $response['status'] = true;
-    $response['payload'] = $token;
+    $response['payload'] = TOKEN;
   } else {
     $response['status'] = false;
-    $response['payload'] = array('message' => 'invalid username and password');
+    $response['payload'] = array('message' => 'invalid username and/or password');
   }
 } else {
   $response['status'] = false;

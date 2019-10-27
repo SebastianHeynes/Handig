@@ -5,7 +5,7 @@ require __DIR__ . '/../../db.php';
 
 $data = array();
 $response = array();
-$result = db_query("SELECT * FROM `ah_feed`");
+$result = db_query("SELECT * FROM `images`");
 
 if ($result === false) {
   $response['status'] = false;
@@ -14,9 +14,9 @@ if ($result === false) {
   while ($row = mysqli_fetch_assoc($result)) {
     $data[] = array(
       'id' => $row['id'],
+      'position' => $row['position'],
       'category' => $row['category'],
-      'picture' => $row['picture'],
-      'thumb' => $row['thumb']
+      'url' => $row['url']
     );
   }
 

@@ -3,14 +3,16 @@ header('Access-Control-Allow-Origin: *');
 
 require __DIR__ . '/../../db.php';
 
+$response = array();
+
 if (isset($_POST['token']) && isset($_POST['data'])) {
   if ($_POST['token'] == TOKEN) {
     $json = json_decode($_POST['data'], true);
     $category = $json['category'];
-    $picture = $json['picture'];
+    $url = $json['url'];
 
-    $sql = "INSERT INTO `ah_feed` (`id`, `position`, `category`, `picture`, `thumb`, `date`)
-            VALUES ('', '', '".$category."', '".$picture."', '".$picture."', '".NOW."')";
+    $sql = "INSERT INTO `images` (`id`, `position`, `category`, `url`)
+            VALUES ('', '', '".$category."', '".$url."')";
 
     $add = db_query($sql);
 
