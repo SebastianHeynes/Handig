@@ -1,25 +1,25 @@
-import * as api from './../api/index.js'
+import * as auth from './../api/auth/index.js'
 
 export default Vue.component('signin', {
 
   data () {
     return {
-      username: '',
+      email: '',
       password: ''
     }
   },
 
   computed: {
     isValid () {
-      return this.username.length && this.password.length
+      return this.email.length && this.password.length
     }
   },
 
   methods: {
     signIn () {  
       if (this.isValid) {
-        api.signIn({
-          username: this.username,
+        auth.$signIn({
+          email: this.email,
           password: this.password
         }).then(data => {
           this.$router.push('/')
@@ -39,10 +39,10 @@ export default Vue.component('signin', {
               class="auth-form sign-in"
               @submit.prevent="signIn">
               <div class="field">
-                <label class="label">Användarnamn</label>
+                <label class="label">Epost</label>
                 <div class="control">
                   <input
-                    v-model="username"
+                    v-model="email"
                     class="input"
                     type="text"
                   />

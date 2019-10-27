@@ -5,17 +5,27 @@ require __DIR__ . '/../../config.php';
 
 $response = array();
 
-if (isset($_POST['id'])) {
-  $connect = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-  $id = $connect->real_escape_string($_POST['id']);
-  $result = db_query("DELETE FROM `images` WHERE id=$id");
+if (isset($_POST['data'])) {
+  $data = json_decode($_POST['data']);
 
-  if ($connect->query($delete) === TRUE) {
-    $response['status'] = true;
-    $response['payload'] = ['message' => 'successfully deleted'];
+  if ($data->token === TOKEN) {
+    $connect = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+    $id = $connect->real_escape_string($data->id);
+
+    $sql = "DELETE FROM `images` WHERE id=$id";
+
+    if ($connect->query($sql)) {
+      $response['status'] = true;
+      $response['payload'] = ['message' => 'successfully deleted'];
+    } else {
+      $response['status'] = false;
+      $response['payload'] = ['message' => $connect->error];
+    }
+
+    $connect->close();
   } else {
     $response['status'] = false;
-    $response['payload'] = ['message' => $connect->error];
+    $response['payload'] = ['message' => 'invalid token'];
   }
 } else {
   $response['status'] = false;
@@ -24,5 +34,3 @@ if (isset($_POST['id'])) {
 
 header('Content-Type: application/json');
 echo json_encode($response);
-
-$connect->close();

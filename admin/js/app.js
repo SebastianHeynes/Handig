@@ -1,6 +1,4 @@
 import router from './router.js'
-
-import topbar from './components/topbar.js'
 import wrapper from './components/wrapper.js'
 
 Vue.use(VueRouter)

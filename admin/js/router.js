@@ -20,9 +20,9 @@ const router = new VueRouter({
 
 // Router guards
 router.beforeEach((to, from, next) => {
-  // if (to.matched.some(route => route.meta.needsAuth)) {
-  //   if (!sessionStorage.getItem('token')) next('/signin')
-  // }
+  if (to.matched.some(route => route.meta.needsAuth)) {
+    if (!sessionStorage.getItem('token')) next('/signin')
+  }
 
   next()
 })

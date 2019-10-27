@@ -1,28 +1,69 @@
-import * as api from './../api/index.js'
-import addModal from './add-modal.js'
+import * as auth from './../api/auth/index.js'
+import * as images from './../api/images/index.js'
+import createModal from './create-modal.js'
 
 export default Vue.component('images', {
 
   components: {
-    addModal
+    createModal
   },
 
   data () {
     return {
-      isActive: false
+      isActive: false,
+      images: null
     }
   },
 
   methods: {
-    add () {
+    toggleModal () {
       this.isActive = !this.isActive
     },
 
+    async $create (data) {
+      try {
+        await images.$create(data)
+        this.isActive = false
+        this.$read()
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async $read () {
+      try {
+        this.images = await images.$read()
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async $update (image) {
+      try {
+        await images.$update(image)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async $delete (image, i) {
+      try {
+        await images.$delete(image)
+        this.images.splice(i, 1)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
     signOut () {
-      api.signOut().then(data => {
+      auth.$signOut().then(data => {
         this.$router.push('/signin')
       })
     }
+  },
+  
+  mounted () {
+    this.$read()
   },
 
   template: /* html */`
@@ -34,7 +75,7 @@ export default Vue.component('images', {
 
         <div class="level-right">
           <div class="buttons is-marginless">
-            <button class="button is-small" @click="add">Lägg till</button>
+            <button class="button is-small" @click="toggleModal">Lägg till</button>
             <button class="button is-small is-danger" @click="signOut">Logga ut</button>
           </div>
         </div>
@@ -45,31 +86,34 @@ export default Vue.component('images', {
           <thead>
             <tr>
               <th>Bild</th>
-              <th>Tagg</th>
+              <th>Kategori</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr
+              v-for="(image, i) in images"
+              :key="image.id">
               <td class="is-narrow">
                 <figure class="image is-24x24">
-                  <img src="https://bulma.io/images/placeholders/24x24.png" />
+                  <img :src="image.url" />
                 </figure>
               </td>
               <td>
-                <span class="tag">Människor</span>
+                <span v-if="image.category" class="tag">{{ image.category }}</span>
               </td>
               <td class="is-narrow has-text-right">
-                <button class="delete"></button>
+                <button class="delete" @click="$delete(image, i)"></button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
 
-      <add-modal
+      <create-modal
         :isActive="isActive"
         @close="isActive = false"
+        @create="$create"
       />
     </div>
   `

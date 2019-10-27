@@ -1,10 +1,14 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 define('DBHOST', 'localhost');
 define('DBUSER', '');
 define('DBPASS', '');
 define('DBNAME', '');
 
-define('SALT', '}!6?|yn/TslJ&h0J[$c9Vm{=#03Q{nDovF|XE)-O~7E(InYssdy@');
+define('TOKEN', '');
+define('SALT', '');
 
 function safepassword ($email, $password) {
   $half = strlen(SALT) / 2;

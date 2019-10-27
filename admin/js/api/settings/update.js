@@ -1,13 +1,18 @@
 export default data => {
   return new Promise((resolve, reject) => {
-    fetch('//albinhandig.se/api/v1/auth/signin', {
+    let payload = new FormData()
+    data['token'] = window.sessionStorage.getItem('token')
+    delete data.email
+    delete data.password
+    payload.append('data', JSON.stringify(data))
+
+    fetch('//albinhandig.se/api/v1/settings/update', {
       method: 'post',
-      body: JSON.stringify(data)
+      body: payload
     })
     .then(response => response.json())
     .then(data => {
       if (data.status) {
-        sessionStorage.setItem('token', data.payload)
         resolve(data)
       } else {
         reject(data.payload)

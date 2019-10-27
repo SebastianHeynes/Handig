@@ -6,11 +6,12 @@ require __DIR__ . '/../../config.php';
 session_start();
 $response = array();
 
-if (isset($_POST['email']) && isset($_POST['password'])) {
+if (isset($_POST['data'])) {
+  $data = json_decode($_POST['data']);
   $connect = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 
-  $email = $connect->real_escape_string($_POST['email']);
-  $password = $connect->real_escape_string($_POST['password']);
+  $email = $connect->real_escape_string($data->email);
+  $password = $connect->real_escape_string($data->password);
 
   $safepass = safepassword($email, $password);
 
@@ -23,11 +24,13 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
     $_SESSION['token'] = TOKEN;
 
     $response['status'] = true;
-    $response['payload'] = array('message' => TOKEN);
+    $response['payload'] = array('token' => TOKEN);
   } else {
     $response['status'] = false;
-    $response['payload'] = array('message' => 'invalid email and/or password');
+    $response['payload'] = array('message' => 'email or password doesnt match');
   }
+
+  $connect->close();
 } else {
   $response['status'] = false;
   $response['payload'] = array('message' => 'email & password is required');
@@ -35,5 +38,3 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
 
 header('Content-Type: application/json');
 echo json_encode($response);
-
-$connect->close();

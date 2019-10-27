@@ -11,16 +11,17 @@ if (isset($_POST['data'])) {
   if ($data->token === TOKEN) {
     $connect = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 
+    $id = $connect->real_escape_string($data->id);
+    $position = $connect->real_escape_string($data->position);
     $description = $connect->real_escape_string($data->description);
     $category = $connect->real_escape_string($data->category);
     $url = $connect->real_escape_string($data->url);
-
-    $sql = "INSERT INTO `images` (`id`, `position`, `description`, `category`, `url`)
-            VALUES ('', '', '".$description."', '".$category."', '".$url."')";
+    
+    $sql = "UPDATE `images` SET `position`='$position', `description`='$description', `category`='$category', `url`='$url' WHERE `id`='$id'";
 
     if ($connect->query($sql)) {
       $response['status'] = true;
-      $response['payload'] = array('message' => 'image has been added');
+      $response['payload'] = array('message' => 'image updated');
     } else {
       $response['status'] = false;
       $response['payload'] = array('message' => $connect->error);
@@ -33,7 +34,7 @@ if (isset($_POST['data'])) {
   }
 } else {
   $response['status'] = false;
-  $response['payload'] = array('message' => 'invalid data');
+  $response['payload'] = array('message' => 'data is required');
 }
 
 header('Content-Type: application/json');
