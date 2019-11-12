@@ -24,7 +24,7 @@ const app = new Vue({
         <router-view />
       </div><!-- wrapper -->
 
-      <page-footer />
+      <!-- <page-footer /> -->
     </div><!-- app -->
   `
 

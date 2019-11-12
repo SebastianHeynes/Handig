@@ -36,33 +36,35 @@ const footer = Vue.component('footer', {
 
   template: /* html */`
     <footer class="footer">
-      <div class="content has-text-centered">
-        <div class="level">
-          <div class="level-left">
-            <strong>&copy; Copyright {{ year }} Albin Händig</strong>
-          </div>
-
-          <div class="level-right">
-            <div>
-              <a href="tel:+46 72 560 76 39" class="button is-text">
-                <span class="icon ion-ios-telephone"></span>
-              </a>
+      <!--
+        <div class="content has-text-centered">
+          <div class="level">
+            <div class="level-left">
+              <strong>&copy; Copyright {{ year }} Albin Händig</strong>
             </div>
 
-            <div class="push-left">
-              <a :href="mailto" class="button is-text">
-                <span class="icon ion-email"></span>
-              </a>
-            </div>
+            <div class="level-right">
+              <div>
+                <a href="tel:+46 72 560 76 39" class="button is-text">
+                  <span class="icon ion-ios-telephone"></span>
+                </a>
+              </div>
 
-            <div class="push-left">
-              <a href="https://www.instagram.com/albinhandig/" target="_blank" class="button is-text">
-                <span class="icon ion-social-instagram"></span>
-              </a>
+              <div class="push-left">
+                <a :href="mailto" class="button is-text">
+                  <span class="icon ion-email"></span>
+                </a>
+              </div>
+
+              <div class="push-left">
+                <a href="https://www.instagram.com/albinhandig/" target="_blank" class="button is-text">
+                  <span class="icon ion-social-instagram"></span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      -->
     </footer>
   `
 
