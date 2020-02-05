@@ -1,20 +1,27 @@
-import home from './views/home.js'
+import start from './views/start.js'
+import work from './views/work.js'
+import personal from './views/personal.js'
 import signin from './views/signin.js'
 
 // Initialize router
 const router = new VueRouter({
+  linkActiveClass: 'is-active',
   routes: [{
     path: '/',
-    component: home,
-    meta: {
-      needsAuth: true
-    }
+    component: start,
+    meta: { needsAuth: true }
+  }, {
+    path: '/work',
+    component: work,
+    meta: { needsAuth: true }
+  }, {
+    path: '/personal',
+    component: personal,
+    meta: { needsAuth: true }
   }, {
     path: '/signin',
     component: signin,
-    meta: {
-      needsAuth: false
-    }
+    meta: { needsAuth: false }
   }]
 })
 

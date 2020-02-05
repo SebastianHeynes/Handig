@@ -49,8 +49,6 @@ const app = new Vue({
       <div class="wrapper">
         <router-view />
       </div><!-- wrapper -->
-
-      <!-- <page-footer /> -->
     </div><!-- app -->
   `
 

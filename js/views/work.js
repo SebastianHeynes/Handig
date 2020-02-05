@@ -1,4 +1,4 @@
-const home = Vue.component('home', {
+const work = Vue.component('work', {
 
   data () {
     return {
@@ -16,10 +16,9 @@ const home = Vue.component('home', {
         .then(response => response.json())
         .then(json => {
           let images = json.payload.data
-          images = images.filter(image => image.category === 'start')
+          images = images.filter(image => image.category === 'work')
           images = images.sort((a, b) => a.position - b.position)
           this.images = images
-          console.log(images)
         })
     }
   },
@@ -41,4 +40,4 @@ const home = Vue.component('home', {
 
 })
 
-export default home
+export default work

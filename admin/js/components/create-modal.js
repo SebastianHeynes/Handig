@@ -55,12 +55,14 @@ export default Vue.component('create-modal', {
           <div class="field">
             <div class="control">
               <label class="label" for="category">Kategori</label>
-              <input
-                id="category"
-                v-model="category"
-                class="input"
-                type="text"
-              />
+              <div class="select">
+                <select id="category" v-model="category">
+                  <option value="">Kategori</option>
+                  <option value="start">Start</option>
+                  <option value="work">Work</option>
+                  <option value="personal">Personal</option>
+                </select>
+              </div>
             </div>
             <p class="help">Varje kategori hamnar i sin egen flik</p>
           </div>
@@ -86,7 +88,7 @@ export default Vue.component('create-modal', {
                 v-model="url"
                 class="input"
                 type="text"
-                placeholder="https://"
+                placeholder="//i.imgur.com"
               />
             </div>
             <p class="help"><a href="https://imgur.com">imgur</a></p>

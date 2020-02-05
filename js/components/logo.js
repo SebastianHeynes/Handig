@@ -9,7 +9,7 @@ const logo = Vue.component('logo', {
 
   template: /* html */`
     <div class="logo">
-      <strong>{{ name }}</strong>
+      <router-link to="/"><strong>{{ name }}</strong></router-link>
     </div>
   `
 
