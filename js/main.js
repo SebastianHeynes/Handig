@@ -16,8 +16,34 @@ const app = new Vue({
 
   router: router,
 
+  data () {
+    return {
+      settings: null
+    }
+  },
+
+  computed: {
+    color () {
+      return this.settings && this.settings.color
+    }
+  },
+
+  mounted () {
+    this.read()
+  },
+
+  methods: {
+    read () {
+      fetch('//albinhandig.se/api/v1/settings/read')
+        .then(response => response.json())
+        .then(json => {
+          this.settings = json.payload.data
+        })
+    }
+  },
+
   template: /* html */`
-    <div class="app">
+    <div class="app" :style="{ 'background': color }">
       <page-topbar />
 
       <div class="wrapper">

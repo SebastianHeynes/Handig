@@ -40,9 +40,9 @@ const about = Vue.component('about', {
         <div class="columns">
           <div class="column is-half is-offset-one-quarter">
             <div class="box">
-              <h1 class="title is-4">{{ presentation }}</h1>
-              <h1 class="title is-4">{{ email }}</h1>
-              <h1 class="title is-4">+46 (0) 72 560 76 39</h1>
+              <h1 class="is-size-4">{{ presentation }}</h1>
+              <h1 class="is-size-4">{{ email }}</h1>
+              <h1 class="is-size-4">+46 (0) 72 560 76 39</h1>
             </div>
 
             <div class="columns">

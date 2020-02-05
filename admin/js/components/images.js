@@ -15,6 +15,12 @@ export default Vue.component('images', {
     }
   },
 
+  computed: {
+    year () {
+      return new Date().getFullYear()
+    }
+  },
+
   methods: {
     toggleModal () {
       this.isActive = !this.isActive
@@ -68,47 +74,79 @@ export default Vue.component('images', {
 
   template: /* html */`
     <div class="images">
-      <nav class="level">
-        <div class="level-left">
-          <h4 class="title is-4">Bilder</h4>
-        </div>
+      <section class="hero">
+        <div class="hero-body">
+          <nav class="level">
+            <div class="level-left">
+              <div>
+                <h4 class="title is-4">Bilder</h4>
+                <h6 class="subtitle is-6">Alla dina mästerverk</h6>
+              </div>
+            </div>
 
-        <div class="level-right">
-          <div class="buttons is-marginless">
-            <button class="button is-small" @click="toggleModal">Lägg till</button>
-            <button class="button is-small is-danger" @click="signOut">Logga ut</button>
+            <div class="level-right">
+              <div class="buttons has-addons is-marginless">
+                <button
+                  title="Lägg till ny bild"
+                  class="button is-small is-primary is-marginless"
+                  @click="toggleModal">
+                  <span class="icon ion-images"></span>
+                  <span>Lägg till</span>
+                </button>
+
+                <button
+                  title="Logga ut"
+                  class="button is-small is-danger is-marginless"
+                  @click="signOut">
+                  <span class="icon ion-power"></span>
+                </button>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </section>
+
+      <hr class="is-marginless" />
+
+      <div class="gallery">
+        <div
+          v-for="(image, i) in images"
+          :key="image.id"
+          class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img :src="image.url" />
+            </figure>
           </div>
-        </div>
-      </nav>
 
-      <div class="table-container">
-        <table class="table is-hoverable is-fullwidth">
-          <thead>
-            <tr>
-              <th>Bild</th>
-              <th>Kategori</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(image, i) in images"
-              :key="image.id">
-              <td class="is-narrow">
-                <figure class="image is-24x24">
-                  <img :src="image.url" />
-                </figure>
-              </td>
-              <td>
-                <span v-if="image.category" class="tag">{{ image.category }}</span>
-              </td>
-              <td class="is-narrow has-text-right">
-                <button class="delete" @click="$delete(image, i)"></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          <div v-if="image.category" class="card-content">
+            <span v-if="image.category" class="tag">{{ image.category }}</span>
+          </div>
+
+          <footer class="card-footer">
+            <p class="card-footer-item">
+              <a class="button is-small" :href="image.url">
+                <span class="icon ion-arrow-expand"></span>
+                <span>Fullstorlek</span>
+              </a>
+            </p>
+            <p class="card-footer-item">
+              <button class="button is-danger is-small" @click="$delete(image, i)">
+                <span class="icon ion-trash-b"></span>
+                <span>Radera</span>
+              </button>
+            </p>
+          </footer>
+        </div>
       </div>
+
+      <footer class="footer">
+        <div class="content has-text-centered">
+          <p>
+            &copy; <strong>copyright</strong> {{ year }}
+          </p>
+        </div>
+      </footer>
 
       <create-modal
         :isActive="isActive"

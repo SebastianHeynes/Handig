@@ -15,11 +15,13 @@ if (isset($_POST['data'])) {
     $presentation = $connect->real_escape_string($data->presentation);
     $facebook = $connect->real_escape_string($data->facebook);
     $instagram = $connect->real_escape_string($data->instagram);
+    $phone = $connect->real_escape_string($data->phone);
+    $color = $connect->real_escape_string($data->color);
 
     $response['status'] = true;
     $response['payload'] = array('message' => $profilepic);
     
-    $sql = "UPDATE `settings` SET `profilepic`='$profilepic', `presentation`='$presentation', `facebook`='$facebook', `instagram`='$instagram' WHERE `id`=1";
+    $sql = "UPDATE `settings` SET `profilepic`='$profilepic', `presentation`='$presentation', `facebook`='$facebook', `instagram`='$instagram', `phone`='$phone', `color`='$color' WHERE `id`=1";
     $result = $connect->query($sql) or die($connect->error);
 
     if ($result) {

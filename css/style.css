@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Ibarra+Real+Nova&display=swap');
 
+body {
+  font-family: 'Ibarra Real Nova', serif;
+}
+
 html, body {
   background: #ccc;
   height: 100%;
@@ -7,10 +11,6 @@ html, body {
 
 html {
   overflow-y: hidden;
-}
-
-body {
-  font-family: 'Ibarra Real Nova', serif;
 }
 
 .profilepicture {
@@ -47,8 +47,8 @@ body {
 }
 
 .box {
-  background: #ccc;
-  color: #ccc;
+  background: transparent;
+  color: #4a4a4a;
   display: block;
   margin-bottom: 1px;
   box-shadow: none !important;
@@ -111,7 +111,7 @@ body {
 .prev-next {
   cursor: pointer;
   padding: 0.75rem;
-  font-size: 3rem;
+  font-size: 1.5rem;
   padding: 0;
   background: transparent;
   border: 0;
@@ -144,7 +144,7 @@ body {
 }
 
 .logo {
-  padding-right: 1.5rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   border-bottom: 0;
@@ -155,6 +155,10 @@ body {
   margin-bottom: -1px;
   border-bottom: 1px solid #dbdbdb;
 } */
+
+.tabs {
+  background: transparent !important;
+}
 
 .tabs ul,
 .tabs a {

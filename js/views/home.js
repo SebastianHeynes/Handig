@@ -15,6 +15,7 @@ const home = Vue.component('home', {
 
   mounted () {
     this.read()
+    document.addEventListener('keyup', this.go)
   },
 
   methods: {
@@ -23,8 +24,18 @@ const home = Vue.component('home', {
         .then(response => response.json())
         .then(json => {
           let images = json.payload.data
-          this.images = images.filter(image => image.category === 'work')
+          images = images.filter(image => image.category === 'work')
+          images = images.sort((a, b) => a.position - b.position)
+          this.images = images
         })
+    },
+
+    go () {
+    	if (event.keyCode === 37 && this.currentImage !== 0) {
+      	this.prev()
+      } else if (event.keyCode === 39 && this.currentImage !== this.images.length - 1) {
+      	this.next()
+      }
     },
 
     prev () {
@@ -45,7 +56,8 @@ const home = Vue.component('home', {
           @click="prev">
         </span>
 
-        <div class="image">
+        <div
+          class="image">
           <img
             :src="image"
           />

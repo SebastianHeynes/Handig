@@ -18,7 +18,9 @@ if ($result) {
     'profilepic' => $row['profilepic'],
     'presentation' => $row['presentation'],
     'facebook' => $row['facebook'],
-    'instagram' => $row['instagram']
+    'instagram' => $row['instagram'],
+    'phone' => $row['phone'],
+    'color' => $row['color']
   );
 
   $response['status'] = true;

@@ -15,6 +15,7 @@ const personal = Vue.component('personal', {
 
   mounted () {
     this.read()
+    document.addEventListener('keyup', this.go)
   },
 
   methods: {
@@ -23,8 +24,18 @@ const personal = Vue.component('personal', {
         .then(response => response.json())
         .then(json => {
           let images = json.payload.data
-          this.images = images.filter(image => image.category === 'personal')
+          images = images.filter(image => image.category === 'personal')
+          images = images.sort((a, b) => a.position - b.position)
+          this.images = images
         })
+    },
+
+    go () {
+    	if (event.keyCode === 37 && this.currentImage !== 0) {
+      	this.prev()
+      } else if (event.keyCode === 39 && this.currentImage !== this.images.length - 1) {
+      	this.next()
+      }
     },
 
     prev () {
