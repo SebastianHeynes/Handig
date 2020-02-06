@@ -78,43 +78,49 @@ const app = new Vue({
   },
 
   template: /* html */`
-    <div class="app splitview">
-      <settings />
-
-      <div class="images">
-        <div>
-          <topbar @modal="showModal" />
-          <hr class="is-marginless" />
-
-          <div class="tabs is-large is-marginless">
-            <ul>
-              <router-link to="/" tag="li"><a>Start</a></router-link>
-              <router-link to="/work" tag="li"><a>Work</a></router-link>
-              <router-link to="/personal" tag="li"><a>Personal</a></router-link>
-            </ul>
-          </div>
-
-          <div class="wrapper">
-            <transition name="router" mode="out-in" appear>
-              <router-view />
-            </transition>
-          </div>
-        </div>
-
-        <footer class="footer">
-          <div class="content has-text-centered">
-            <p>
-              &copy; <strong>copyright</strong> {{ year }}
-            </p>
-          </div>
-        </footer>
+    <div>
+      <div v-if="!$route.meta.needsAuth">
+        <router-view />
       </div>
 
-      <create-modal
-        :isActive="isActive"
-        @close="isActive = false"
-        @create="$create"
-      />
+      <div v-else class="app splitview">
+        <settings />
+
+        <div class="images">
+          <div>
+            <topbar @modal="showModal" />
+            <hr class="is-marginless" />
+
+            <div class="tabs is-large is-marginless">
+              <ul>
+                <router-link to="/" tag="li"><a>Start</a></router-link>
+                <router-link to="/work" tag="li"><a>Work</a></router-link>
+                <router-link to="/personal" tag="li"><a>Personal</a></router-link>
+              </ul>
+            </div>
+
+            <div class="wrapper">
+              <transition name="router" mode="out-in" appear>
+                <router-view />
+              </transition>
+            </div>
+          </div>
+
+          <footer class="footer">
+            <div class="content has-text-centered">
+              <p>
+                &copy; <strong>copyright</strong> {{ year }}
+              </p>
+            </div>
+          </footer>
+        </div>
+
+        <create-modal
+          :isActive="isActive"
+          @close="isActive = false"
+          @create="$create"
+        />
+      </div>
     </div>
   `
 })

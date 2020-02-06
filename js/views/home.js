@@ -3,6 +3,13 @@ const home = Vue.component('home', {
   data () {
     return {
       images: null,
+      currentImage: 0
+    }
+  },
+
+  computed: {
+    image () {
+      return this.images && this.images[this.currentImage].url
     }
   },
 
@@ -21,19 +28,53 @@ const home = Vue.component('home', {
           this.images = images
           console.log(images)
         })
+    },
+
+    go () {
+    	if (event.keyCode === 37 && this.currentImage !== 0) {
+      	this.prev()
+      } else if (event.keyCode === 39 && this.currentImage !== this.images.length - 1) {
+      	this.next()
+      }
+    },
+
+    prev () {
+      this.currentImage--
+    },
+
+    next () {
+      this.currentImage++
     }
   },
 
   template: /* html */`
     <section class="section">
-      <div v-if="images" class="container is-fluid has-text-centered is-paddingless columns">
-        <div class="column is-half is-offset-one-quarter">
-          <div
-            class="image"
-            v-for="(image, i) in images"
-            :key="i">
-            <img :src="image.url" />
-          </div>
+      <div v-if="images" class="container is-fluid gallery has-text-centered is-paddingles home is-hidden-mobile">
+        <span
+          v-if="currentImage !== 0"
+          class="prev-next ion-chevron-left"
+          @click="prev">
+        </span>
+
+        <div class="image">
+          <img
+            :src="image"
+          />
+        </div>
+
+        <span
+          v-if="currentImage !== images.length - 1"
+          class="prev-next ion-chevron-right"
+          @click="next">
+        </span>
+      </div>
+
+      <div v-if="images" class="container is-fluid has-text-centered is-paddingless is-hidden-tablet">
+        <div
+          class="image"
+          v-for="(image, i) in images"
+          :key="i">
+          <img :src="image.url" />
         </div>
       </div>
     </section>

@@ -47,6 +47,15 @@ const start = Vue.component('start', {
       }
     },
 
+    async $delete (image, i) {
+      try {
+        await images.$delete(image)
+        this.images.splice(i, 1)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
     onUpdate (event) {
       this.images.splice(event.newIndex, 0, this.images.splice(event.oldIndex, 1)[0])
 
