@@ -15,6 +15,7 @@ const work = Vue.component('work', {
 
   mounted () {
     this.read()
+    document.addEventListener('keyup', this.go)
   },
 
   methods: {

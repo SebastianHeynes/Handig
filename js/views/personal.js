@@ -15,6 +15,7 @@ const personal = Vue.component('personal', {
 
   mounted () {
     this.read()
+    document.addEventListener('keyup', this.go)
   },
 
   methods: {

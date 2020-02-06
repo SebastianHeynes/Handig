@@ -15,6 +15,7 @@ const home = Vue.component('home', {
 
   mounted () {
     this.read()
+    document.addEventListener('keyup', this.go)
   },
 
   methods: {
